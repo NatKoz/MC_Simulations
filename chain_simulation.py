@@ -1,11 +1,14 @@
 import pyalps
 import matplotlib.pyplot as plt
 import pyalps.plot
+import numpy as np
 
 
 #prepare the input parameters
+temp_list = list(np.arange(0.1,2.5,0.1))+list(np.arange(2.5,10.5,0.2))
+
 parms = []
-for t in [0., 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0]:
+for t in temp_list:
     parms.append(
         {
             'LATTICE'        : "chain lattice", 
