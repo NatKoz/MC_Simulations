@@ -59,12 +59,18 @@ data = pyalps.loadMeasurements(result_files, ['Susceptibility'])
 plotdata = pyalps.collectXY(data,x='T',y='Susceptibility', foreach=['MODEL', 'LATTICE']) 
 
 
-#make plot
-plt.figure()
-pyalps.plot.plot(plotdata)
-plt.xlabel('Temperature $T/J$')
-plt.ylabel('Susceptibility $\chi J$')
-plt.xlim(0,3)
-plt.ylim(0,0.22) 
-plt.title('Classical Ising Chain')
+#function to make plot with multiple variables (susceptibility, magnetization and specific heat)
+def sim_plot(plotdata):
+    N=len(plotdata[0].y)
+    new_argument_x = np.zeros(N)
+    new_argument_y = np.zeros(N)
+    new_variance = np.zeros(N)
+    for k in range(N):
+        new_argument_x[k] = plotdata[0].x[k]
+        new_argument_y[k] = plotdata[0].y[k].mean
+        new_variance[k] = plotdata[0].y[k].variance
+    return new_argument_x, new_argument_y, new_variance
+
+plt.errorbar(new_argument_x, new_argument_y, new_variance, label='Ising')
+plt.legend()
 plt.show()
