@@ -25,34 +25,33 @@ for t in temp_list:
 
 #write the input file and run the simulation
 input_file = pyalps.writeInputFiles('parm',parms)
-pyalps.runApplication('spinmc',input_file,Tmin=5)
+pyalps.runApplication('spinmc',input_file, writexml = True)
 
 
-#load the susceptibility
-data = pyalps.loadMeasurements(pyalps.getResultFiles(prefix='parm'), 'Susceptibility') 
+#get the list of result files 
+result_files = pyalps.getResultFiles(prefix = 'parm')
+print ("Loading results from the files: ", result_files)
 
-#flatten the hierarchical structure
-data = pyalps.flatten(data)
 
-# collect susceptibility as a function of temperature T
-susceptibility = pyalps.collectXY(data,x='T',y='Susceptibility') 
+#print the observables stored in those files 
+print ("The files contain the folowing measurements: "),
+print (pyalps.loadObservableList(result_files))
 
-#asign labels to the data depending on the properties
-for s in susceptibility:
-    if s.props['LATTICE'] == 'chain lattice':
-        s.props['label'] == "chain"
-    elif s.props['LATTICE'] == 'ladder':
-        s.props['label'] == "ladder"
-    if s.props['MODEL'] == 'spin':
-        s.props['label'] == "quantum" + s.props['label']
-    elif s.props['LATTICE'] == 'Ising':
-        s.props['label'] == "classical" + s.props['label']
+
+#load selected measurements
+data = pyalps.loadMeasurements(result_files, ['Susceptibility']) 
+
+
+# collect plotdata as a function of temperature T
+plotdata = pyalps.collectXY(data,x='T',y='Susceptibility') 
+
 
 #make plot
 plt.figure()
-pyalps.plot.plot(susceptibility)
+pyalps.plot.plot(plotdata)
 plt.xlabel('Temperature $T/J$')
 plt.ylabel('Susceptibility $\chi J$')
+plt.xlim(0,3)
 plt.ylim(0,0.22) 
-plt.title('Classical Heisenberg chain')
+plt.title('Classical Ising Chain')
 plt.show()
