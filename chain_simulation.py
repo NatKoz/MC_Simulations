@@ -28,10 +28,25 @@ input_file = pyalps.writeInputFiles('parm',parms)
 pyalps.runApplication('spinmc',input_file,Tmin=5)
 
 
-#load the susceptibility and collect it as a function of temperature T
+#load the susceptibility
 data = pyalps.loadMeasurements(pyalps.getResultFiles(prefix='parm'), 'Susceptibility') 
+
+#flatten the hierarchical structure
+data = pyalps.flatten(data)
+
+# collect susceptibility as a function of temperature T
 susceptibility = pyalps.collectXY(data,x='T',y='Susceptibility') 
 
+#asign labels to the data depending on the properties
+for s in susceptibility:
+    if s.props['LATTICE'] == 'chain lattice':
+        s.props['label'] == "chain"
+    elif s.props['LATTICE'] == 'ladder':
+        s.props['label'] == "ladder"
+    if s.props['MODEL'] == 'spin':
+        s.props['label'] == "quantum" + s.props['label']
+    elif s.props['LATTICE'] == 'Ising':
+        s.props['label'] == "classical" + s.props['label']
 
 #make plot
 plt.figure()
