@@ -2,6 +2,15 @@ import pyalps
 import matplotlib.pyplot as plt
 import pyalps.plot
 import numpy as np
+import os
+import glob
+
+
+#function to delete old parm files (start with given string)
+def delete_old(file_name):
+    for d in glob.glob(file_name + "*.*"):
+        os.remove(d)
+
 
 
 #prepare the input parameters
@@ -21,6 +30,10 @@ for t in temp_list:
             'L'              : 30
         }
     )
+
+
+#run delete old simulation files function before new simulation
+delete_old('parm')
 
 
 #write the input file and run the simulation
@@ -43,7 +56,7 @@ data = pyalps.loadMeasurements(result_files, ['Susceptibility'])
 
 
 # collect plotdata as a function of temperature T
-plotdata = pyalps.collectXY(data,x='T',y='Susceptibility') 
+plotdata = pyalps.collectXY(data,x='T',y='Susceptibility', foreach=['MODEL', 'LATTICE']) 
 
 
 #make plot
