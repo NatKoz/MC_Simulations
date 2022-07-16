@@ -8,7 +8,11 @@ import glob
 
 #function to delete old parm files (start with given string)
 def delete_old(file_name):
-    for d in glob.glob(file_name + "*.*"):
+    for d in glob.glob(file_name + ".task*.*"):
+        os.remove(d)
+    for d in glob.glob(file_name + ".in.*"):
+        os.remove(d)
+    for d in glob.glob(file_name + ".out.*"):
         os.remove(d)
 
 
