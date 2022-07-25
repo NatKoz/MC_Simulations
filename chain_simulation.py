@@ -16,6 +16,14 @@ def delete_old(file_name):
         os.remove(d)
 
 
+#if statement to simplyfy the simulation (TRUE/FALSE)
+if True:
+    LATTICE = "my_chain"
+    PREFIX = "Chain_spinmc_lattice"
+else:
+    LATTICE = "my_ladder"
+    PREFIX = "Ladder_spinmc_lattice"
+
 
 #prepare the input parameters
 temp_list = list(np.arange(0.1,2.5,0.1))+list(np.arange(2.5,10.5,0.2))
@@ -25,7 +33,7 @@ for t in temp_list:
     parms.append(
         {
             'LATTICE_LIBRARY': "my_chain_lattice.xml", 
-            'LATTICE'        : "chain lattice", 
+            'LATTICE'        : LATTICE, 
             'T'              : t, 
             'J'              : 1 ,
             'THERMALIZATION' : 1000,
