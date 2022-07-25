@@ -24,6 +24,7 @@ parms = []
 for t in temp_list:
     parms.append(
         {
+            'LATTICE_LIBRARY': "my_chain_lattice.xml", 
             'LATTICE'        : "chain lattice", 
             'T'              : t, 
             'J'              : 1 ,
@@ -31,6 +32,7 @@ for t in temp_list:
             'SWEEPS'         : 50000,
             'UPDATE'         : "cluster",
             'MODEL'          : "Ising", 
+            'MODEL_LIBRARY'  : "my_chain_model.xml", 
             'L'              : 30
         }
     )
@@ -44,6 +46,8 @@ delete_old('parm')
 input_file = pyalps.writeInputFiles('parm',parms)
 pyalps.runApplication('spinmc',input_file, writexml = True)
 
+#parameter variable what to draw on the plot
+argument = 'Susceptibility'
 
 #get the list of result files 
 result_files = pyalps.getResultFiles(prefix = 'parm')
@@ -56,11 +60,11 @@ print (pyalps.loadObservableList(result_files))
 
 
 #load selected measurements
-data = pyalps.loadMeasurements(result_files, ['Susceptibility']) 
+data = pyalps.loadMeasurements(result_files, [argument]) 
 
 
 # collect plotdata as a function of temperature T
-plotdata = pyalps.collectXY(data,x='T',y='Susceptibility', foreach=['MODEL', 'LATTICE']) 
+plotdata = pyalps.collectXY(data, x = 'T', y = argument', foreach = ['MODEL', 'LATTICE']) 
 
 
 #function to make plot with multiple variables (susceptibility, magnetization and specific heat)
