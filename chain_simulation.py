@@ -73,8 +73,10 @@ def sim_plot(plotdata):
         new_argument_x[k] = plotdata[0].x[k]
         new_argument_y[k] = plotdata[0].y[k].mean
         new_variance[k] = plotdata[0].y[k].variance
-    return new_argument_x, new_argument_y, new_variance
+    chi_t = new_argument_x * new_argument_y
+    chi_t_variance = new_variance * new_argument_x
+    return new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance
 
-plt.errorbar(new_argument_x, new_argument_y, new_variance, label='Ising')
+plt.errorbar(new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance, label='Ising')
 plt.legend()
 plt.show()
