@@ -1,3 +1,4 @@
+from sys import prefix
 import pyalps
 import matplotlib.pyplot as plt
 import pyalps.plot
@@ -52,10 +53,15 @@ delete_old('parm')
 
 #write the input file and run the simulation
 input_file = pyalps.writeInputFiles('parm',parms)
-pyalps.runApplication('spinmc',input_file, writexml = True)
+results = pyalps.runApplication('spinmc',input_file, writexml = True)
+assert results[0]==0, "There is an ERROR in runApplication!"
+
+pyalps.evaluateSpinMC(pyalps.getResultFiles(prefix = PREFIX))
+
 
 #parameter variable what to draw on the plot
 argument = 'Susceptibility'
+
 
 #get the list of result files 
 result_files = pyalps.getResultFiles(prefix = 'parm')
@@ -77,7 +83,7 @@ plotdata = pyalps.collectXY(data, x = 'T', y = argument', foreach = ['MODEL', 'L
 
 #function to make plot with multiple variables (susceptibility, magnetization and specific heat)
 def sim_plot(plotdata):
-    N=len(plotdata[0].y)
+    N = len(plotdata[0].y)
     new_argument_x = np.zeros(N)
     new_argument_y = np.zeros(N)
     new_variance = np.zeros(N)
@@ -91,4 +97,15 @@ def sim_plot(plotdata):
 
 plt.errorbar(new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance, label='Ising')
 plt.legend()
+plt.title(PREFIX)
 plt.show()
+
+
+
+#convert simulated data into txt format 
+print ("Results in txt format are saved: ")
+f  = open ('chain_lattice.txt', 'w')
+f.write(pyalps.plot.ConvertToText(plotdata))
+f.colse()
+
+
