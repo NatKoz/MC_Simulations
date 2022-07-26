@@ -33,15 +33,15 @@ parms = []
 for t in temp_list:
     parms.append(
         {
-            'LATTICE_LIBRARY': "my_chain_lattice.xml", 
             'LATTICE'        : LATTICE, 
+            'LATTICE_LIBRARY': "my_chain_lattice.xml", 
+            'MODEL'          : "Ising", 
+            'MODEL_LIBRARY'  : "my_chain_model.xml", 
             'T'              : t, 
             'J'              : 1 ,
             'THERMALIZATION' : 1000,
             'SWEEPS'         : 50000,
             'UPDATE'         : "cluster",
-            'MODEL'          : "Ising", 
-            'MODEL_LIBRARY'  : "my_chain_model.xml", 
             'L'              : 30
         }
     )
@@ -52,7 +52,7 @@ delete_old('parm')
 
 
 #write the input file and run the simulation
-input_file = pyalps.writeInputFiles('parm',parms)
+input_file = pyalps.writeInputFiles(PREFIX, parms)
 results = pyalps.runApplication('spinmc',input_file, writexml = True)
 assert results[0]==0, "There is an ERROR in runApplication!"
 
