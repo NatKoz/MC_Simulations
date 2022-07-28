@@ -13,18 +13,19 @@ for p in PREFIX_LIST:
 
 
 #parameter variable what to draw on the plot
-load_argument = 'Susceptibility'
+load_argument = 'Susceptibility', '|Magnetization|', 'Specific Heat', 'Energy'
 
 
 #load selected measurements
 data = pyalps.loadMeasurements(pre_list, [load_argument]) 
 
 
+#parameter variable what to draw plots
+S = 'Susceptibility'
+M = '|Magnetization|'
+SH = 'Specific Heat'
+E = 'Energy'
 
-
-
-#parameter variable what to draw ChiT
-argument = 'Susceptibility'
 
 
 #ChiT
@@ -32,18 +33,32 @@ obschoose = lambda d, o: np.array(d)[np.nonzero([xx.props['observable'] == o for
 
 chit =[]
 for dd in data:
-    susc = obschoose(dd, argument)[0]
+    susc = obschoose(dd, S)[0]
 
     res = pyalps.DataSet() #ChiT
     res.props = pyalps.dict_intersect([d.props for d in dd])
     res.x = np.array([susc.props['T']])
     res.y = np.array(susc.y[0] * res.x)
     res.props['observable'] = 'ChiT'
+    chit.append(res)
 
 
+
+divide = ['MODEL', 'LATTICE', 'J1']
 
 # collect plotdata as a function of temperature T
-plotdata = pyalps.collectXY(data, x = 'T', y = argument', foreach = ['MODEL', 'LATTICE']) 
+plotdata = pyalps.collectXY(data, x = 'T', y = 'ChiT', foreach = divide) 
+
+#flatten hierarchical structure
+plotdata = pyalps.flatten(plotdata)
+data = pyalps.flatten(data)
+
+#collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
+Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
+Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
+SpeH = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
+Ene= pyalps.collectXY(data, x = 'T', y = E, foreach = divide) 
+
 
 
 #function to make plot with multiple variables (susceptibility, magnetization and specific heat)
