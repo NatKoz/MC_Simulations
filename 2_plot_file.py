@@ -60,6 +60,19 @@ SpeH = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide)
 Ene= pyalps.collectXY(data, x = 'T', y = E, foreach = divide) 
 
 
+#function to rescaling lattice real-valued data
+def normalized(sims):
+    for sim in sims:
+        if sim.props["LATTICE"] == 'my_chain':
+            for osy in sim.y:
+                osy = osy/2
+
+normalized(plotdata)
+normalized(Sus)
+normalized(Mag)
+normalized(SpeH)
+normalized(Ene)
+
 
 #function to make plot with multiple variables (susceptibility, magnetization and specific heat)
 def sim_plot(plotdata):
