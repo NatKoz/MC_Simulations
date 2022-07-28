@@ -47,7 +47,7 @@ for dd in data:
 divide = ['MODEL', 'LATTICE', 'J1']
 
 # collect plotdata as a function of temperature T
-plotdata = pyalps.collectXY(data, x = 'T', y = 'ChiT', foreach = divide) 
+Chi_T = pyalps.collectXY(data, x = 'T', y = 'ChiT', foreach = divide) 
 
 #flatten hierarchical structure
 plotdata = pyalps.flatten(plotdata)
@@ -56,7 +56,7 @@ data = pyalps.flatten(data)
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
-SpeH = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
+Spe_H = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
 Ene= pyalps.collectXY(data, x = 'T', y = E, foreach = divide) 
 
 
@@ -67,13 +67,15 @@ def normalized(sims):
             for osy in sim.y:
                 osy = osy/2
 
-normalized(plotdata)
+normalized(Chi_T)
 normalized(Sus)
 normalized(Mag)
-normalized(SpeH)
+normalized(Spe_H)
 normalized(Ene)
 
 
+
+"""""
 #function to make plot with multiple variables (susceptibility, magnetization and specific heat)
 def sim_plot(plotdata):
     N = len(plotdata[0].y)
@@ -92,13 +94,49 @@ plt.errorbar(new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance
 plt.legend()
 plt.title(PREFIX)
 plt.show()
+"""""
+
+#plots for collected physical properies data 
+plt.figure()
+
+plt.sobplot(221)
+pyalps.plot.plot(Chi_T)
+plt.xlabel('Temperature $T$')
+plt.ylabel('$\chi$T')
+
+plt.sobplot(222)
+pyalps.plot.plot(Sus)
+plt.xlabel('Temperature $T$')
+plt.ylabel('Susceptibility $\chi J$')
+plt.ylim(0,1)
+
+fontP = FontProperties()
+fontP.set_size('smaller')
+plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+
+
+plt.sobplot(223)
+pyalps.plot.plot(Spe_H)
+plt.xlabel('Temperature $T$')
+plt.ylabel('Specific Heat $c_v$')
+
+plt.sobplot(224)
+pyalps.plot.plot(Mag)
+plt.xlabel('Temperature $T$')
+plt.ylabel('Magnetization $m$')
+
+
+plt.show()
 
 
 
+"""""
 #convert simulated data into txt format 
 print ("Results in txt format are saved: ")
 f  = open ('chain_lattice.txt', 'w')
 f.write(pyalps.plot.ConvertToText(plotdata))
 f.colse()
+""""
+
 
 
