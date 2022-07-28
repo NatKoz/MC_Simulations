@@ -13,11 +13,33 @@ for p in PREFIX_LIST:
 
 
 #parameter variable what to draw on the plot
-argument = 'Susceptibility'
+load_argument = 'Susceptibility'
 
 
 #load selected measurements
-data = pyalps.loadMeasurements(pre_list, [argument]) 
+data = pyalps.loadMeasurements(pre_list, [load_argument]) 
+
+
+
+
+
+#parameter variable what to draw ChiT
+argument = 'Susceptibility'
+
+
+#ChiT
+obschoose = lambda d, o: np.array(d)[np.nonzero([xx.props['observable'] == o for xx in d])]
+
+chit =[]
+for dd in data:
+    susc = obschoose(dd, argument)[0]
+
+    res = pyalps.DataSet() #ChiT
+    res.props = pyalps.dict_intersect([d.props for d in dd])
+    res.x = np.array([susc.props['T']])
+    res.y = np.array(susc.y[0] * res.x)
+    res.props['observable'] = 'ChiT'
+
 
 
 # collect plotdata as a function of temperature T
