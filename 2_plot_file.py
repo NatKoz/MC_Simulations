@@ -55,8 +55,19 @@ data = pyalps.flatten(data)
 
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
+
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
+
 Spe_H = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
+for sh in Spe_H:
+    sh.y = sh.y/sh.x
+    if sh.props["LATTICE"] == 'my_chain':
+        sh.y = sh.y/2
+        scale_data == 'none':
+        sh.props['xlabel'] = 'T'
+        sh.props['ylabel'] = 'C/T'
+
+
 Ene= pyalps.collectXY(data, x = 'T', y = E, foreach = divide) 
 
 
@@ -75,26 +86,7 @@ normalized(Ene)
 
 
 
-"""""
-#function to make plot with multiple variables (susceptibility, magnetization and specific heat)
-def sim_plot(plotdata):
-    N = len(plotdata[0].y)
-    new_argument_x = np.zeros(N)
-    new_argument_y = np.zeros(N)
-    new_variance = np.zeros(N)
-    for k in range(N):
-        new_argument_x[k] = plotdata[0].x[k]
-        new_argument_y[k] = plotdata[0].y[k].mean
-        new_variance[k] = plotdata[0].y[k].variance
-    chi_t = new_argument_x * new_argument_y
-    chi_t_variance = new_variance * new_argument_x
-    return new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance
 
-plt.errorbar(new_argument_x, new_argument_y, new_variance, chi_t, chi_t_variance, label='Ising')
-plt.legend()
-plt.title(PREFIX)
-plt.show()
-"""""
 
 #plots for collected physical properies data 
 plt.figure()
@@ -128,15 +120,6 @@ plt.ylabel('Magnetization $m$')
 
 plt.show()
 
-
-
-"""""
-#convert simulated data into txt format 
-print ("Results in txt format are saved: ")
-f  = open ('chain_lattice.txt', 'w')
-f.write(pyalps.plot.ConvertToText(plotdata))
-f.colse()
-""""
 
 
 
