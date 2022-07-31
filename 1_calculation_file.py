@@ -1,4 +1,3 @@
-from sys import prefix
 import pyalps
 import matplotlib.pyplot as plt
 import pyalps.plot
@@ -27,7 +26,7 @@ else:
 
 
 #prepare the input parameters with different incrementation (0.1 and 0.2)
-temp_list = list(np.arange(0.1,2.5,0.1))+list(np.arange(2.5,10.5,0.2))
+temp_list = list(np.arange(0.1,2.5,0.1)) + list(np.arange(2.5,10.5,0.2))
 
 parms = []
 for t in temp_list:
@@ -53,7 +52,7 @@ delete_old('parm')
 
 #write the input file and run the simulation
 input_file = pyalps.writeInputFiles(PREFIX, parms)
-results = pyalps.runApplication('spinmc', input_file, writexml = True)
+results = pyalps.runApplication('spinmc', input_file, Tmin = 5)
 
 assert results[0] == 0, "There is an ERROR in runApplication!"
 
