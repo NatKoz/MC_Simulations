@@ -11,6 +11,9 @@ pre_list = []
 for p in PREFIX_LIST:
     pre_list = pre_list + pyalps.getResultFiles(prefix = p)
 
+#scale_data = 'J'
+scale_data = 'exp' #stands for experimental data
+
 
 #parameter variable what to draw on the plot
 load_argument = 'Susceptibility', '|Magnetization|', 'Specific Heat', 'Energy'
@@ -27,8 +30,15 @@ SH = 'Specific Heat'
 E = 'Energy'
 
 
+#enter experimental data from external file
+def enter_data(file_name):
+    all_exp_data = np.loadtxt(file_name, delimiter = '\t', dtype = str) #.transpose()
+    all_exp_data = np.delete(all_exp_data, [0,1,2], axis = 0)
+    return np.char.replace(all_exp_data, ',', '.').astype(float64)
 
-#ChiT
+
+
+"""#ChiT
 obschoose = lambda d, o: np.array(d)[np.nonzero([xx.props['observable'] == o for xx in d])]
 
 chit =[]
@@ -41,6 +51,7 @@ for dd in data:
     res.y = np.array(susc.y[0] * res.x)
     res.props['observable'] = 'ChiT'
     chit.append(res)
+    """
 
 
 
