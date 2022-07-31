@@ -69,6 +69,13 @@ Chi_T = pyalps.collectXY(data, x = 'T', y = 'ChiT', foreach = divide)
 plotdata = pyalps.flatten(plotdata)
 data = pyalps.flatten(data)
 
+
+#constant physical quantities
+sus_const = (0.375 * 0.5 * (8**2)/4)
+m_const = 8/2
+sh_const = 8.314
+
+
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 
