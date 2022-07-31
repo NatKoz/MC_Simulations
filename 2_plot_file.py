@@ -63,7 +63,7 @@ for dd in data:
 divide = ['MODEL', 'LATTICE', 'J1']
 
 # collect plotdata as a function of temperature T
-Chi_T = pyalps.collectXY(data, x = 'T', y = 'ChiT', foreach = divide) 
+
 
 #flatten hierarchical structure
 plotdata = pyalps.flatten(plotdata)
@@ -78,22 +78,32 @@ sh_const = 8.314
 
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
-
+Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
+log_Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
 
 Spe_H = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
 for sh in Spe_H:
-    sh.y = sh.y/sh.x
+    sh.y = sh.y / sh.x
     if sh.props["LATTICE"] == 'my_chain':
-        sh.y = sh.y/2
-        scale_data == 'none':
+        sh.y = sh.y / 2
+    if scale_data == 'J':
+        sh.x = sh.x / sh.props['J']
+        sh.y = sh.y * sh.props['J']
+        sh.props['xlabel'] = 'T/J'
+        sh.props['ylabel'] = 'CJ/T'
+    elif scale_data == 'exp':
+        sh.y = sh.y * sh_const
+        sh.props['xlabel'] = 'T (K)'
+        sh.props['ylabel'] = 'C/T (J/molK$^2$)'
+    elif scale_data = 'none':
         sh.props['xlabel'] = 'T'
         sh.props['ylabel'] = 'C/T'
 
 
-Ene= pyalps.collectXY(data, x = 'T', y = E, foreach = divide) 
 
 
+"""""
 #function to rescaling lattice real-valued data
 def normalized(sims):
     for sim in sims:
@@ -106,7 +116,7 @@ normalized(Sus)
 normalized(Mag)
 normalized(Spe_H)
 normalized(Ene)
-
+"""
 
 
 
