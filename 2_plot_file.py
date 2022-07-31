@@ -37,6 +37,11 @@ def enter_data(file_name):
     return np.char.replace(all_exp_data, ',', '.').astype(float64)
 
 
+#enter experimental txt file
+exp_chain_chit = enter_data('exp_chit_chain_h1000.txt')
+exp_chain_s = enter_data('exp_sus_chain_h1000.txt')
+exp_chain_m = enter_data('exp_m_chain-1_8K-2.txt')
+exp_chain_sh = enter_data('exp_sh_chain.txt')
 
 """#ChiT
 obschoose = lambda d, o: np.array(d)[np.nonzero([xx.props['observable'] == o for xx in d])]
