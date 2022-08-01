@@ -135,7 +135,23 @@ for lch in log_Chi_T:
 
 
 
-Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
+Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide)
+for ma in Mag:
+    if ma.props["LATTICE"] == 'my_chain':
+        ma.y = ma.y / 2
+    if scale_data == 'J':
+        ma.x = ma.x / ma.props['J']
+        ma.props['xlabel'] = 'T/J'
+        ma.props['ylabel'] = '|m|'
+    elif scale_data == 'exp':
+        ma.y = ma.y * m_const / 2
+        ma.props['xlabel'] = 'T (K)'
+        lch.props['ylabel'] = '|m|$_{avg}$ ($\mu_B$)'
+    elif scale_data = 'none':
+        ma.props['xlabel'] = 'T'
+        ma.props['ylabel'] = '|m|'
+
+
 
 Spe_H = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
 for sh in Spe_H:
