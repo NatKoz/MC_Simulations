@@ -78,7 +78,22 @@ sh_const = 8.314
 
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
-Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
+for su in Sus:
+    if su.props["LATTICE"] == 'my_chain':
+        su.y = su.y / 2
+    if scale_data == 'J':
+        su.x = su.x / su.props['J']
+        su.props['xlabel'] = 'T/J'
+        su.props['ylabel'] = '$\chi$'
+    elif scale_data == 'exp':
+        su.y = su.y * sus_const / 3
+        su.props['xlabel'] = 'T (K)'
+        su.props['ylabel'] = '$\chi_{avg}$ (cm$^3$/mol)'
+    elif scale_data = 'none':
+        su.props['xlabel'] = 'T'
+        su.props['ylabel'] = '$\chi$'
+
+Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide)
 log_Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
 
