@@ -93,7 +93,28 @@ for su in Sus:
         su.props['xlabel'] = 'T'
         su.props['ylabel'] = '$\chi$'
 
+
+
 Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide)
+for ch in Chi_T:
+    ch.y = ch.y * ch.x
+    ch.props['ylabel'] = '$\chi T$'
+    if ch.props["LATTICE"] == 'my_chain':
+        ch.y = ch.y / 2
+    if scale_data == 'J':
+        ch.x = ch.x / ch.props['J']
+        ch.props['xlabel'] = 'T/J'
+        ch.props['ylabel'] = '$\chi T$'
+    elif scale_data == 'exp':
+        ch.y = ch.y * sus_const / 3
+        ch.props['xlabel'] = 'T (K)'
+        ch.props['ylabel'] = '$\chi_{avg} T$ (cm$^3$K/mol)'
+    elif scale_data = 'none':
+        ch.props['xlabel'] = 'T'
+        ch.props['ylabel'] = '$\chi T$'
+
+
+
 log_Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide) 
 
