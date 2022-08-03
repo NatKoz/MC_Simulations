@@ -187,8 +187,6 @@ pyalps.plot.plot(Chi_T)
 if scale_data == 'exp':
     plt.scatter(exp_chain_chit[:,0], exp_chain_chit[:,1])
 plt.xlim([0,10])
-plt.xlabel('Temperature $T$')
-plt.ylabel('$\chi$T')
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
@@ -224,20 +222,18 @@ pyalps.plot.plot(Spe_H)
 if scale_data == 'exp':
     plt.scatter(exp_chain_sh[:,0], exp_chain_sh[:,1])
 plt.xlim([0,10])
-#plt.xlabel('Temperature $T$')
-#plt.ylabel('Specific Heat $c_v$')
-plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
 
 
 #magnetization
-plt.sobplot(224)
+#plt.sobplot(224)
 pyalps.plot.plot(Mag)
-plt.xlabel('Temperature $T$')
-plt.ylabel('Magnetization $m$')
-
-plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+if scale_data == 'exp':
+    plt.scatter(exp_chain_m[:,0], exp_chain_m[:,1])
+plt.xlim([0,10])
+plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
 plt.show()
