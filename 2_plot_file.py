@@ -174,52 +174,48 @@ for sh in Spe_H:
 
 
 
-"""""
-#function to rescaling lattice real-valued data
-def normalized(sims):
-    for sim in sims:
-        if sim.props["LATTICE"] == 'my_chain':
-            for osy in sim.y:
-                osy = osy/2
-
-normalized(Chi_T)
-normalized(Sus)
-normalized(Mag)
-normalized(Spe_H)
-normalized(Ene)
-"""
-
-
-
 
 #plots for collected physical properies data 
+fontP = FontProperties()
+fontP.set_size('smaller')
+
 plt.figure()
 
-plt.sobplot(221)
+#chi_t
+#plt.sobplot(221)
 pyalps.plot.plot(Chi_T)
+if scale_data == 'exp':
+    plt.scatter(exp_chain_chit[:,0], exp_chain_chit[:,1])
+plt.xlim([0,10])
 plt.xlabel('Temperature $T$')
 plt.ylabel('$\chi$T')
+plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
+#sus
 plt.sobplot(222)
 pyalps.plot.plot(Sus)
 plt.xlabel('Temperature $T$')
 plt.ylabel('Susceptibility $\chi J$')
 plt.ylim(0,1)
 
-fontP = FontProperties()
-fontP.set_size('smaller')
 plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
 
-
+# spec. heat 
 plt.sobplot(223)
 pyalps.plot.plot(Spe_H)
 plt.xlabel('Temperature $T$')
 plt.ylabel('Specific Heat $c_v$')
 
+plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+
+
+#magnetization
 plt.sobplot(224)
 pyalps.plot.plot(Mag)
 plt.xlabel('Temperature $T$')
 plt.ylabel('Magnetization $m$')
+
+plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
 
 
 plt.show()
