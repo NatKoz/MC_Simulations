@@ -192,13 +192,28 @@ plt.ylabel('$\chi$T')
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 #sus
-plt.sobplot(222)
-pyalps.plot.plot(Sus)
-plt.xlabel('Temperature $T$')
-plt.ylabel('Susceptibility $\chi J$')
-plt.ylim(0,1)
+#plt.sobplot(222)
+logsus = True
+if logsus:
+    plt.figure()
+    pyalps.plot.plot(log_Chi_T)
+    if scale_data == 'exp':
+        tem = exp_chain_s[:,0]
+        susc = exp_chain_s[:,1]
+        plt.scatter(1 / tem, np.log(tem * susc))
+    if scale_data == 'J':
+        plt.xlim([0, 1])
+    elif scale_data == 'exp':
+        plt.xlim([0, 0.8])
+else:
+    plt.figure()
+    pyalps.plot.plot(Sus)
+    if scale_data == 'exp':
+        plt.scatter(exp_chain_s[:,0], exp_chain_s[:,1])
+    plt.xlim([0, 10])
+    
 
-plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+
 
 # spec. heat 
 plt.sobplot(223)
