@@ -191,6 +191,7 @@ plt.xlabel('Temperature $T$')
 plt.ylabel('$\chi$T')
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
+
 #sus
 #plt.sobplot(222)
 logsus = True
@@ -211,17 +212,23 @@ else:
     if scale_data == 'exp':
         plt.scatter(exp_chain_s[:,0], exp_chain_s[:,1])
     plt.xlim([0, 10])
-    
+
+plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
 
 # spec. heat 
-plt.sobplot(223)
+#plt.sobplot(223)
+plt.figure()
 pyalps.plot.plot(Spe_H)
-plt.xlabel('Temperature $T$')
-plt.ylabel('Specific Heat $c_v$')
-
+if scale_data == 'exp':
+    plt.scatter(exp_chain_sh[:,0], exp_chain_sh[:,1])
+plt.xlim([0,10])
+#plt.xlabel('Temperature $T$')
+#plt.ylabel('Specific Heat $c_v$')
 plt.legend(loc = 'upper right', bbox_to_anchor = (1,1), prop = fontP)
+
+
 
 
 #magnetization
