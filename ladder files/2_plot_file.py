@@ -6,7 +6,7 @@ import numpy as np
 
 
 #list connected to calculation file with outputs
-PREFIX_LIST = ['spinmc_chain_high_density']
+PREFIX_LIST = ['spinmc_ladder_J1=-15_J2=J3=1', 'spinmc_ladder_J1=-12_J2=J3=1', 'spinmc_ladder_J1=-10.829_J2=J3=5']
 pre_list = []
 for p in PREFIX_LIST:
     pre_list = pre_list + pyalps.getResultFiles(prefix = p)
@@ -16,7 +16,7 @@ scale_data = 'exp' #stands for experimental data
 
 
 #parameter variable what to draw on the plot
-load_argument = 'Susceptibility', '|Magnetization|', 'Specific Heat', 'Energy'
+load_argument = 'Susceptibility', '|Magnetization|', 'Specific Heat'
 
 
 #load selected measurements
@@ -27,7 +27,6 @@ data = pyalps.loadMeasurements(pre_list, [load_argument])
 S = 'Susceptibility'
 M = '|Magnetization|'
 SH = 'Specific Heat'
-E = 'Energy'
 
 
 #enter experimental data from external file
@@ -38,13 +37,13 @@ def enter_data(file_name):
 
 
 #enter experimental txt file
-exp_chain_chit = enter_data('exp_chit_chain_h1000.txt')
-exp_chain_s = enter_data('exp_sus_chain_h1000.txt')
-exp_chain_m = enter_data('exp_m_chain-1_8K-2.txt')
-exp_chain_sh = enter_data('exp_sh_chain.txt')
+exp_ladder_chit = enter_data('exp_chit_ladder_h1000.txt')
+exp_ladder_s = enter_data('exp_sus_ladder_h1000.txt')
+exp_ladder_m = enter_data('exp_m_ladder.txt')
+exp_ladder_sh = enter_data('exp_sh_ladder.txt')
 
 
-divide = ['MODEL', 'LATTICE', 'J1']
+divide = ['LATTICE', 'J1', 'J2', 'J3']
 
 
 #flatten hierarchical structure
@@ -53,7 +52,7 @@ data = pyalps.flatten(data)
 
 
 #constant physical quantities
-sus_const = (0.375 * 0.5 * (8**2) / 4)
+sus_const = (0.375 * 0.5 * 1.5 * (8**2) / 4)
 m_const = 8 / 2
 sh_const = 8.314
 
