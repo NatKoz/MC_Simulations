@@ -17,7 +17,7 @@ def delete_old(file_name):
 
 
 #if statement to simplyfy the simulation (TRUE/FALSE)
-if True:
+if False:
     LATTICE = "my_chain"
     PREFIX = "Chain_spinmc_lattice"
 else:
@@ -25,17 +25,17 @@ else:
     PREFIX = "Ladder_spinmc_lattice"
 
 
-#prepare the input parameters with different incrementation (0.1 and 0.2)
-temp_list = list(np.arange(0.1,2.5,0.1)) + list(np.arange(2.5,10.5,0.2))
+#prepare the input parameters with different incrementation (0.5 and 2)
+temp_list = list(np.arange(2,10,0.5)) + list(np.arange(10,25,2))
 
 parms = []
 for t in temp_list:
     parms.append(
         {
             'LATTICE'        : LATTICE, 
-            'LATTICE_LIBRARY': "my_chain_lattice.xml", 
+            'LATTICE_LIBRARY': "my_ladder_lattice.xml", 
             'MODEL'          : "Ising", 
-            'MODEL_LIBRARY'  : "my_chain_model.xml", 
+            'MODEL_LIBRARY'  : "my_ladder_model.xml", 
             'T'              : t, 
             'J'              : 1 ,
             'THERMALIZATION' : 1000,
