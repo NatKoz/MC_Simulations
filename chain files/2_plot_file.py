@@ -43,26 +43,8 @@ exp_chain_s = enter_data('exp_sus_chain_h1000.txt')
 exp_chain_m = enter_data('exp_m_chain-1_8K-2.txt')
 exp_chain_sh = enter_data('exp_sh_chain.txt')
 
-"""#ChiT
-obschoose = lambda d, o: np.array(d)[np.nonzero([xx.props['observable'] == o for xx in d])]
-
-chit =[]
-for dd in data:
-    susc = obschoose(dd, S)[0]
-
-    res = pyalps.DataSet() #ChiT
-    res.props = pyalps.dict_intersect([d.props for d in dd])
-    res.x = np.array([susc.props['T']])
-    res.y = np.array(susc.y[0] * res.x)
-    res.props['observable'] = 'ChiT'
-    chit.append(res)
-    """
-
-
 
 divide = ['MODEL', 'LATTICE', 'J1']
-
-# collect plotdata as a function of temperature T
 
 
 #flatten hierarchical structure
@@ -71,8 +53,8 @@ data = pyalps.flatten(data)
 
 
 #constant physical quantities
-sus_const = (0.375 * 0.5 * (8**2)/4)
-m_const = 8/2
+sus_const = (0.375 * 0.5 * (8**2) / 4)
+m_const = 8 / 2
 sh_const = 8.314
 
 
