@@ -140,38 +140,25 @@ for sh in Spe_H:
 fontP = FontProperties()
 fontP.set_size('smaller')
 
-plt.figure()
 
+plt.figure()
 #chi_t
 #plt.sobplot(221)
 pyalps.plot.plot(Chi_T)
 if scale_data == 'exp':
-    plt.scatter(exp_chain_chit[:,0], exp_chain_chit[:,1])
+    plt.scatter(exp_ladder_chit[:,0], exp_ladder_chit[:,1])
 plt.xlim([0,10])
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
+
 #sus
 #plt.sobplot(222)
-logsus = True
-if logsus:
-    plt.figure()
-    pyalps.plot.plot(log_Chi_T)
-    if scale_data == 'exp':
-        tem = exp_chain_s[:,0]
-        susc = exp_chain_s[:,1]
-        plt.scatter(1 / tem, np.log(tem * susc))
-    if scale_data == 'J':
-        plt.xlim([0, 1])
-    elif scale_data == 'exp':
-        plt.xlim([0, 0.8])
-else:
-    plt.figure()
-    pyalps.plot.plot(Sus)
-    if scale_data == 'exp':
-        plt.scatter(exp_chain_s[:,0], exp_chain_s[:,1])
-    plt.xlim([0, 10])
-
+plt.figure()
+pyalps.plot.plot(Sus)
+if scale_data == 'exp':
+    plt.scatter(exp_ladder_s[:,0], exp_ladder_s[:,1])
+plt.xlim([0, 10])
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
 
@@ -181,7 +168,7 @@ plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 plt.figure()
 pyalps.plot.plot(Spe_H)
 if scale_data == 'exp':
-    plt.scatter(exp_chain_sh[:,0], exp_chain_sh[:,1])
+    plt.scatter(exp_ladder_sh[:,0], exp_ladder_sh[:,1])
 plt.xlim([0,10])
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
@@ -192,7 +179,7 @@ plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 #plt.sobplot(224)
 pyalps.plot.plot(Mag)
 if scale_data == 'exp':
-    plt.scatter(exp_chain_m[:,0], exp_chain_m[:,1])
+    plt.scatter(exp_ladder_m[:,0], exp_ladder_m[:,1])
 plt.xlim([0,10])
 plt.legend(loc = 'lower right', bbox_to_anchor = (1,1), prop = fontP)
 
