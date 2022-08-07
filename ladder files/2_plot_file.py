@@ -60,14 +60,14 @@ sh_const = 8.314
 #collect physical properies data as a function of temperature - into different data sets depending on the value of the LATTICE and MODEL parameters
 Sus = pyalps.collectXY(data, x = 'T', y = S, foreach = divide) 
 for su in Sus:
-    if su.props["LATTICE"] == 'my_chain':
+    if su.props["LATTICE"] == 'my_ladder':
         su.y = su.y / 2
     if scale_data == 'J':
         su.x = su.x / su.props['J']
         su.props['xlabel'] = 'T/J'
         su.props['ylabel'] = '$\chi$'
     elif scale_data == 'exp':
-        su.y = su.y * sus_const / 3
+        su.y = su.y * sus_const
         su.props['xlabel'] = 'T (K)'
         su.props['ylabel'] = '$\chi_{avg}$ (cm$^3$/mol)'
     elif scale_data = 'none':
@@ -80,39 +80,19 @@ Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide)
 for ch in Chi_T:
     ch.y = ch.y * ch.x
     ch.props['ylabel'] = '$\chi T$'
-    if ch.props["LATTICE"] == 'my_chain':
+    if ch.props["LATTICE"] == 'my_ladder':
         ch.y = ch.y / 2
     if scale_data == 'J':
         ch.x = ch.x / ch.props['J']
         ch.props['xlabel'] = 'T/J'
         ch.props['ylabel'] = '$\chi T$'
     elif scale_data == 'exp':
-        ch.y = ch.y * sus_const / 3
+        ch.y = ch.y * sus_const
         ch.props['xlabel'] = 'T (K)'
         ch.props['ylabel'] = '$\chi_{avg} T$ (cm$^3$K/mol)'
     elif scale_data = 'none':
         ch.props['xlabel'] = 'T'
         ch.props['ylabel'] = '$\chi T$'
-
-
-
-log_Chi_T = pyalps.collectXY(data, x = 'T', y = S, foreach = divide)
-for lch in log_Chi_T:
-    if lch.props["LATTICE"] == 'my_chain':
-        lch.y = lch.y / 2
-    if scale_data == 'J':
-        lch.x = lch.props['J']/ lch.x
-        lch.y = np.log(lch.y * lch.x)
-        lch.props['xlabel'] = 'J/T'
-        lch.props['ylabel'] = '$ln(\chi T)$'
-    elif scale_data == 'exp':
-        lch.x = 1 / lch.x
-        lch.y = np.log(lch.y * lch.x * sus_const / 3)
-        lch.props['xlabel'] = '1/T (1/K)'
-        lch.props['ylabel'] = '$ln(\chi_{avg} T)$ (cm$^3$K/mol)'
-    elif scale_data = 'none':
-        lch.props['xlabel'] = '1/T'
-        lch.props['ylabel'] = '$ln(\chi T)$'
 
 
 
