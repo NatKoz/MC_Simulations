@@ -98,14 +98,14 @@ for ch in Chi_T:
 
 Mag = pyalps.collectXY(data, x = 'T', y = M, foreach = divide)
 for ma in Mag:
-    if ma.props["LATTICE"] == 'my_chain':
+    if ma.props["LATTICE"] == 'my_ladder':
         ma.y = ma.y / 2
     if scale_data == 'J':
         ma.x = ma.x / ma.props['J']
         ma.props['xlabel'] = 'T/J'
         ma.props['ylabel'] = '|m|'
     elif scale_data == 'exp':
-        ma.y = ma.y * m_const / 2
+        ma.y = ma.y * m_const
         ma.props['xlabel'] = 'T (K)'
         lch.props['ylabel'] = '|m|$_{avg}$ ($\mu_B$)'
     elif scale_data = 'none':
@@ -117,7 +117,7 @@ for ma in Mag:
 Spe_H = pyalps.collectXY(data, x = 'T', y = SH, foreach = divide) 
 for sh in Spe_H:
     sh.y = sh.y / sh.x
-    if sh.props["LATTICE"] == 'my_chain':
+    if sh.props["LATTICE"] == 'my_ladder':
         sh.y = sh.y / 2
     if scale_data == 'J':
         sh.x = sh.x / sh.props['J']
