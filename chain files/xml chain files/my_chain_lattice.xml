@@ -21,4 +21,16 @@
     </EDGE>
 </UNITCELL>
 
+
+<LATTICEGRAPH name = "my_chain" >
+    <FINITELATTICE>
+        <LATTICE ref = "chain lattice" />
+        <EXTENT dimention = "1" size = "L" />
+        <BOUNDARY type = "periodic" />
+    </FINITELATTICE>
+
+    <UNITCELL ref = "simple1d" />
+</LATTICEGRAPH
+
+
 </LATTICES>
