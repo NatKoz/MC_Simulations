@@ -19,4 +19,26 @@
   <OPERATOR name = "Sz" matrixelement = "Sz" />
 </SITEBASIS>
 
+
+<BASIS name = "spin" >
+  <SITEBASIS ref = "spin" >
+    <PARAMETER name = "local_spin" value = "local_S#" />
+    <PARAMETER name = "local_S#" value = "local_S" />
+    <PARAMETER name = "local_S" value = "1/2" />
+  </SITEBASIS>
+
+  <CONSTRAINT quantumnumber = "Sz" value = "Sz_total" />
+</BASIS>
+
+
+<SITEOPERATOR name = "Sx" site = "x">
+  1/2 * (Splus(x) + Sminus(x))
+</SITEOPERATOR>
+
+<SITEOPERATOR name = "double_occupancy" site = "x">
+  n(x) * (n(x) - 1) /2
+</SITEOPERATOR>
+
+
+
 </MODELS>
