@@ -1,6 +1,19 @@
 <LATTICES>
 
 
+<LATTICE name = "ladder lattice" dimention = "1">
+    <PARAMETER name = "a" default = "1"/>
+    <BASIS>
+        <VECTOR> a
+        </VECTOR>
+    </BASIS>
+    <RECIPROCALBASIS>
+        <VECTOR> 2 * pi/a
+        </VECTOR>
+    </RECIPROCALBASIS>
+</LATTICE>
+
+
 
 
 </LATTICES>
