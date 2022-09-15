@@ -42,4 +42,15 @@
 
 
 
+<LATTICEGRAPH name = "my_ladder" >                        
+  <FINITELATTICE>
+    <LATTICE ref = "ladder lattice" />
+    <EXTENT dimension = "1" size = "L" />
+    <BOUNDARY type = "periodic" />
+  </FINITELATTICE>
+
+  <UNITCELL ref = "simple ladder" />
+</LATTICEGRAPH>
+
+
 </LATTICES>
