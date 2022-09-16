@@ -31,4 +31,30 @@
 </BASIS>
 
 
+<SITEOPERATOR name = "Sx" site = "x">
+  1/2 * (Splus(x) + Sminus(x))
+</SITEOPERATOR>
+
+<SITEOPERATOR name = "double_occupancy" site = "x">
+  n(x) * (n(x) - 1) /2
+</SITEOPERATOR>
+
+
+
+<BONDOPERATOR name = "exchange" source = "x" target = "y" > 
+  Sz(x) * Sz(y) + 1/2 * (Splus(x) * Sminus(y) + Sminus(x) * Splus(y))
+</BONDOPERATOR>
+
+
+<GLOBALOPERATOR name = "spin_exchange_energy" >
+  <BONDTERM type = "0" source = "i" target = "j" >
+    Jz * Sz(i) * Sz(j) + Jxy/ 2 * exchange_xy(i,j)
+  </BONDTERM>
+
+  <BONDTERM type = "1" source = "i" target = "j">
+    Jz' * Sz(i) * Sz(j) + Jxy'/ 2 * exchange_xy(i,j)
+  </BONDTERM>
+</GLOBALOPERATOR>
+
+
 </MODELS>
