@@ -27,4 +27,29 @@ The ALPS project stands for Algorithms and Libraries for Physics Simulations. It
 
 Simulations with ALPS package are possible due to system structure. There are three variables which are inputs for the system: lattice library, model library and parameters library. The system setup make it possible to use Monte Carlo method to finally obtain results.
 
+The XML stands for eXtensible Markup Language which mix text with “tags” defining the function of the text. In XML contents is marked up with context and that means it reduces data rot and increases portability of data. The XML extend the data format, eg. allow to add random number generator type and seed. Extensible characteristic allow to add new contents without breaking old programs. The change in the text file format might break the program. XML stands with ISO standards by having many tools available: editors, browsers, databases ect.
 
+
+---
+###  🛠 Examples of use
+___
+
+Major aspects of the application of Monte Carlo simulations:
+
+* statistical software program, eg. IBM SPSS Statistics - is optimized for risk analysis and Monte Carlo simulations, which delivers a robust set of features that lets your organization extract actionable insights from its data,
+
+* simulation software solution, eg. GoldSim for dynamic Monte Carlo modeling complex systems in engineering, science and business to make better decisions.
+
+
+---
+
+### 💡 Interesting facts
+___
+
+* calculating the probability of a move by an opponent in a complex game,
+
+* calculating the probability of a weather event in the future,
+
+* alculating the probability of a vehicle crash under specific conditions.
+
+***
